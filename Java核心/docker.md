@@ -223,3 +223,65 @@ resis:latest 指定镜像
 2、如果目录不存在，就会自动创建
 
 3、一个容器可以挂载多个数据卷
+
+
+
+数据卷容器
+
+多容器进行数据交换
+
+1、多个容器挂载到同一个数据卷（操作比较麻烦）
+
+2、数据卷容器（承担上述相同的职责）
+
+<img src="docker.assets/image-20230305212338060.png" alt="image-20230305212338060" style="zoom:50%;" />
+
+
+
+配置数据卷容器
+
+1、创建启动c3数据卷容器，使用-v参数设置数据卷
+
+```shell
+docker run -it --name=c3 -v /volume redis:latest /bin/bash
+```
+
+2、启动c1，c2容器，使用--volume-from参数设置数据卷
+
+```shell
+docker run -it --name=c1 --volumes-from c3 redis:latest /bin/bash
+docker run -it --name=c2 --volumes-from c3 redis:latest /bin/bash
+```
+
+
+
+docker应用部署
+
+mysql部署
+
+在docker容器中部署mysql，并通过外部mysql客户端操作mysql server
+
+
+
+1、容器内的网络服务和外机器不能直接通信
+
+2、外部机器和宿主机可以直接通信
+
+3、宿主机和容器可以直接通信
+
+
+
+当容器中的网络服务需要被外部机器访问时，可以将容器中提供服务的端口号映射到宿主的另外一个端口号上。外部机器访问宿主机的映射端口，从而访问容器的服务
+
+
+
+```shell
+# 搜索mysql镜像
+
+# 拉取mysql镜像
+
+# 创建容器
+
+# 操作容器中的mysql
+```
+
